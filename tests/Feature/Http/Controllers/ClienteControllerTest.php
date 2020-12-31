@@ -56,10 +56,33 @@ class ClienteControllerTest extends TestCase
     /**
      * @test
      */
+    public function verificar_error_al_crear_cliente_con_datos_erroneos()
+    {
+        $data = [
+            'nombre' => 'Chris',
+            'apellido' => 'Vale',
+            'telefono' => '123456',
+            'email' => 'emailFalso',
+            'direccion' => 'calle falsa 123'
+        ];
+        $res = $this->post(route('api.clientes.store'),$data);
+        $res->assertStatus(422);
+        $res->assertJsonFragment(['status'=>'error']);
+    }
+
+    /**
+     * @test
+     */
     public function verificar_que_se_actualiza_un_cliente()
     {
         $cliente = Cliente::factory()->create();
-        $data = ['nombre' => 'Nombre Cambiado'];
+        $data = [
+            'nombre' => 'Nombre actualizado',
+            'apellido' => 'Vale actualizdo',
+            'telefono' => '123456',
+            'email' => 'email@algo.com',
+            'direccion' => 'calle falsa 123'
+        ];
         $res = $this->put(route('api.clientes.update', [$cliente->id]), $data);
         $res->assertStatus(200);
         $res->assertJsonFragment(['status'=>'success']);
