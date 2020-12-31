@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 use App\Helpers;
+use Exception;
 
 class ClienteController extends Controller
 {
@@ -41,7 +42,7 @@ class ClienteController extends Controller
             $cliente->fill($request->all())->save();
             $response = Helpers::ViewAPIResponse($cliente);
         } catch (\Throwable $ex) {
-            $response = Helpers::ViewAPIResponse('No se pudo guardar en base de datos', $ex);
+            $response = Helpers::ViewAPIResponse('No se pudo guardar en base de datos', 500, $ex);
         }
         return $response;
     }
@@ -81,7 +82,7 @@ class ClienteController extends Controller
             $cliente->fill($request->all())->save();
             $response = Helpers::ViewAPIResponse($cliente);
         } catch (\Throwable $ex) {
-            $response = Helpers::ViewAPIResponse('No se pudo actualizar en base de datos', $ex);
+            $response = Helpers::ViewAPIResponse('No se pudo actualizar en base de datos', 500, $ex);
         }
         return $response;
     }
@@ -94,6 +95,14 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        try{
+            if (!$cliente->delete()){
+                new \Throwable("Error al eliminar cliente en base de datos");
+            }
+            $response = Helpers::ViewAPIResponse("Cliente eliminado");
+        } catch (\Throwable $ex) {
+            $response = Helpers::ViewAPIResponse(null, 500, $ex);
+        }       
+        return $response;
     }
 }

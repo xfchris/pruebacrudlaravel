@@ -65,4 +65,16 @@ class ClienteControllerTest extends TestCase
         $res->assertJsonFragment(['status'=>'success']);
         $this->assertDatabaseHas('clientes', $data);
     }
+
+    /**
+     * @test
+     */
+    public function verificar_que_se_elimina_un_cliente()
+    {
+        $cliente = Cliente::factory()->create();
+        $res = $this->delete(route('api.clientes.destroy', [$cliente->id]));
+        $res->assertStatus(200);
+        $res->assertJsonFragment(['status'=>'success']);
+        $this->assertDatabaseMissing('clientes', ['id' => $cliente->id]);
+    }
 }
