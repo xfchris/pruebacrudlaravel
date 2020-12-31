@@ -10,6 +10,7 @@ use App\Helpers;
 
 class ClienteControllerTest extends TestCase
 {
+    use RefreshDatabase;
 
     /**
      * @test
@@ -33,5 +34,25 @@ class ClienteControllerTest extends TestCase
         $res->assertStatus(200);
         $res->assertJsonFragment(Helpers::APIResponse($cliente->toArray()));
     }
+
+    /**
+     * @test
+     */
+    public function verificar_que_se_cree_un_cliente()
+    {
+        $data = [
+            'nombre' => 'Chris',
+            'apellido' => 'Vale',
+            'telefono' => '123456',
+            'email' => 'email@algo.com',
+            'direccion' => 'calle falsa 123'
+        ];
+        $res = $this->post(route('api.clientes.store'),$data);
+        $res->assertStatus(200);
+        $res->assertJsonFragment(['status'=>'success']);
+        $this->assertDatabaseHas('clientes', $data);
+    }
+
+    
     
 }
