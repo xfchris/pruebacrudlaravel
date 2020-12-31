@@ -53,6 +53,16 @@ class ClienteControllerTest extends TestCase
         $this->assertDatabaseHas('clientes', $data);
     }
 
-    
-    
+    /**
+     * @test
+     */
+    public function verificar_que_se_actualiza_un_cliente()
+    {
+        $cliente = Cliente::factory()->create();
+        $data = ['nombre' => 'Nombre Cambiado'];
+        $res = $this->put(route('api.clientes.update', [$cliente->id]), $data);
+        $res->assertStatus(200);
+        $res->assertJsonFragment(['status'=>'success']);
+        $this->assertDatabaseHas('clientes', $data);
+    }
 }

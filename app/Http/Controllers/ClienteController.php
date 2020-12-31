@@ -77,7 +77,13 @@ class ClienteController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+        try{
+            $cliente->fill($request->all())->save();
+            $response = Helpers::ViewAPIResponse($cliente);
+        } catch (\Throwable $ex) {
+            $response = Helpers::ViewAPIResponse('No se pudo actualizar en base de datos', $ex);
+        }
+        return $response;
     }
 
     /**
