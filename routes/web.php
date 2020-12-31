@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/',[App\Http\Controllers\ClienteController::class, 'principal']);
 
 Route::prefix('api')->name('api.')->group(function () {
     Route::resource('clientes', App\Http\Controllers\ClienteController::class);

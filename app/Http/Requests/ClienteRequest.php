@@ -11,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 class ClienteRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determina si el usuario esta autorizado
      *
      * @return bool
      */

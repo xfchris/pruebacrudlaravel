@@ -4,13 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
-use Illuminate\Http\Request;
 use App\Helpers;
 
 class ClienteController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra pagina principal
+     */
+    public function principal(){
+        return view('welcome');
+    }
+
+    /**
+     * Devuelve todos los clientes
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +27,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Muestra vista para crear un cliente
      *
      * @return \Illuminate\Http\Response
      */
@@ -31,7 +37,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Guarda en base de datos un nuevo cliente
      *
      * @param  \App\Http\Requests\ClienteRequest  $request
      * @param  \App\Models\Cliente  $cliente
@@ -49,7 +55,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Muestra un cliente en expecífico
      *
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
@@ -60,7 +66,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Muestra el formulario para editar un cliente en específico
      *
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
@@ -71,7 +77,7 @@ class ClienteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Actualiza un cliente en expecifico
      *
      * @param  \App\Http\Requests\ClienteRequest $request
      * @param  \App\Models\Cliente  $cliente
