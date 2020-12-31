@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use Illuminate\Http\Request;
+use App\Helpers;
 
 class ClienteController extends Controller
 {
@@ -14,7 +15,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $res = Cliente::orderBy('id', 'DESC')->get();
+        return Helpers::ViewAPIResponse($res);
     }
 
     /**
