@@ -48,7 +48,7 @@ class ClienteController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        return Helpers::ViewAPIResponse($cliente);
     }
 
     /**

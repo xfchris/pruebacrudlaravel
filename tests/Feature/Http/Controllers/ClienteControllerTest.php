@@ -17,11 +17,21 @@ class ClienteControllerTest extends TestCase
     public function verificar_que_se_lista_todos_los_clientes()
     {
         Cliente::factory(3)->create();
-
         $clientes = Cliente::orderBy('id', 'DESC')->get();
         $res = $this->get(route('api.clientes.index'));
         $res->assertStatus(200);
         $res->assertJsonFragment(Helpers::APIResponse($clientes->toArray()));
+    }
+
+    /**
+     * @test
+     */
+    public function verificar_que_se_muestra_un_cliente()
+    {
+        $cliente = Cliente::factory()->create();
+        $res = $this->get(route('api.clientes.show', [$cliente->id]));
+        $res->assertStatus(200);
+        $res->assertJsonFragment(Helpers::APIResponse($cliente->toArray()));
     }
     
 }
