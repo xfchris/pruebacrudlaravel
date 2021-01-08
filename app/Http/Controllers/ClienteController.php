@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ClienteRequest;
 use App\Models\Cliente;
 use App\Helpers;
+use App\Http\Requests\ClienteUpdateRequest;
 
 class ClienteController extends Controller
 {
@@ -12,7 +13,7 @@ class ClienteController extends Controller
      * Muestra pagina principal
      */
     public function principal(){
-        return view('welcome');
+        return view('index');
     }
 
     /**
@@ -79,11 +80,11 @@ class ClienteController extends Controller
     /**
      * Actualiza un cliente en expecifico
      *
-     * @param  \App\Http\Requests\ClienteRequest $request
+     * @param  \App\Http\Requests\ClienteUpdateRequest $request
      * @param  \App\Models\Cliente  $cliente
      * @return \Illuminate\Http\Response
      */
-    public function update(ClienteRequest $request, Cliente $cliente)
+    public function update(ClienteUpdateRequest $request, Cliente $cliente)
     {
         try{
             $cliente->fill($request->all())->save();
